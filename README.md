@@ -1,7 +1,7 @@
 # ITS_PFA
 End of Year Project (Issue Tracking System)
 
-## D
+## DB
 - Users(
   id INT,
   email VARCHAR(255),
