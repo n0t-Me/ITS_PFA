@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
              'team_id' => 2
         ]);
         \App\Models\User::factory(10)->create();
+        \App\Models\Issue::factory(20)->create();
     }
 }

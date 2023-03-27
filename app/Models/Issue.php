@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Issue extends Model
 {
   use HasFactory;
+  public function getOwner() {
+    return $this->hasOne(User::class, 'id', 'owner_id');
+  }
 }

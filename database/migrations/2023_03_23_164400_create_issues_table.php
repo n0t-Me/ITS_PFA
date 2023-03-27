@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('issues', function (Blueprint $table) {
           $table->id();
           $table->string('title');
-          $table->enum('status', ['Open', 'Closed']);
+          $table->text('description');
+          $table->enum('status', ['Open', 'Closed'])->default('Open');
           $table->integer('severity');
+          $table->timestamp('opened_at')->useCurrent();
+          $table->timestamp('closed_at')->nullable();
           $table->unsignedBigInteger('team_id');
           $table->unsignedBigInteger('owner_id');
           $table->unsignedBigInteger('assignee_id')->nullable();

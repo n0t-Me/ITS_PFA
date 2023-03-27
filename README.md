@@ -1,6 +1,19 @@
 # ITS_PFA
 End of Year Project (Issue Tracking System)
 
+## Running
+```sh
+php artisan migrate:fresh
+php artisan db:seed
+npm run dev
+```
+
+## To install ui auth (Deja msayb don't run it)
+
+```sh
+composer require laravel/ui 
+php artisan ui bootstrap --auth 
+```
 ## DB
 - Users(
   id INT,
@@ -32,12 +45,6 @@ End of Year Project (Issue Tracking System)
   comment TEXT,
 )
 
-- IssuesTemplates(
-  id,
-  template JSON,
-)
-
-
 ## Routes:
 
 - [x] /login
@@ -45,8 +52,10 @@ End of Year Project (Issue Tracking System)
 - [x] /dashboard 
 - [ ] /profile
 
+- [x] /issues
 - [ ] /issues/search
-- [ ] /issues/create
+- [x] /issues/create
+- [x] /issues/my
 - [ ] /issues/{id}
 - [ ] /issues/{id}/update 
 - [ ] /issues/{id}/delete 
