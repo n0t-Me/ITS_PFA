@@ -65,6 +65,14 @@ class IssueController extends Controller
       $issue->severity = $request->severity + 0;
       $issue->owner_id = Auth::user()->id;
       $issue->team_id = User::find($issue->owner_id)->team_id;
+
+      $files = $request->file('files');
+      # Continue from here
+      foreach ($files as $file) {
+        $filename = $file->getClientOriginalName();
+        $extension = $file->getClientOriginalExtension();
+      }
+
       $issue->save();
       return redirect(route('allIssues'));
     }
@@ -74,7 +82,9 @@ class IssueController extends Controller
      */
     public function show(int $id)
     {
-        return $id;
+      return view('issues.show',[
+        'issue' => Issue::with('getOwner')->find($id)
+      ]);
     }
 
     /**

@@ -7,7 +7,7 @@
       <div class="card">
         <div class="card-header">Create Issue</div>
           <div class="card-body">
-            <form method="POST" action="{{route('storeIssue')}}">
+            <form method="POST" action="{{route('storeIssue')}}" enctype="multipart/form-data">
               @csrf
               <div class="form-floating mb-3">
                 <input id="title" name="title" class="form-control" placeholder="" required>
@@ -35,7 +35,7 @@
               </div>
               <div class="mb-3">
                 <label for="file">Attachement</label>
-                <input class="form-control" name="file" id="file" type="file" multiple>
+                <input class="form-control" name="files[]" id="file" type="file" multiple>
               </div>
               <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Create Issue</button>
