@@ -36,7 +36,7 @@
         </div>
         @if (count($issue->attachements) > 0)
           <div class="m-3 ps-2 border-start border-primary border-3">
-            <strong>Attachements:</strong>
+            <strong><i class="bi bi-paperclip"></i>Attachements:</strong>
             <div class="list-group">
             @foreach ($issue->attachements as $a)
               <a class="list-group-item" href="/storage/{{$a->path}}">{{$a->name}}</a>
@@ -46,25 +46,45 @@
         @endif
       </div>
     </div>
-    <hr class="mb-5"/>
+      <div class="d-flex flex-row justify-content-end">
       <div class="col-md-11">
       @if (count($issue->comments) > 0)
+      <hr class=""/>
+      <h5>Comments</h5>
       @foreach ($issue->comments as $comment)
           <div class="card mt-3">
             <div class="card-header d-flex justify-content-between">
               <div><strong>{{$comment->owner->name}}</strong></div>
               <div class="fs-8 fst-italic fw-lighter text-secondary">{{$comment->created_at}}</div>
             </div>
-            <div class="card-body"><p>{{$comment->comment}}</p></div>
+            <div class="card-body"> 
+              {{$comment->comment}}
+              @if (count($comment->attachements) > 0)
+                <div class="m-3 ps-2 border-start border-primary border-3">
+                  <strong><i class="bi bi-paperclip"></i>Attachements:</strong>
+                  <div class="list-group">
+                  @foreach ($comment->attachements as $a)
+                    <a class="list-group-item" href="/storage/{{$a->path}}">{{$a->name}}</a>
+                  @endforeach
+                  </div>
+                </div>
+              @endif
+            </div>
           </div>
         @endforeach
         @endif
-      <hr class="mb-5"/>
-      <form class="mt-4" method="POST" action="{{url()->current()}}/newComment">
-        @csrf
-        <textarea class="form-control" name="comment" placeholder="New Comment" required></textarea>
-        <input type="submit" class="btn btn-primary mt-2" value="New Comment"/>
-      </form>
+      @if ($issue->status === "Open")
+        <hr class=""/>
+        <form class="mt-4" method="POST" action="{{url()->current()}}/newComment" enctype="multipart/form-data">
+          @csrf
+          <textarea class="form-control" name="comment" placeholder="New Comment" required></textarea>
+          <div class="input-group">
+            <input name="files[]" class="mt-2 form-control" type="file" multiple>
+            <button type="submit" class="mt-2 btn btn-primary">Comment <i class="bi bi-send"></i></button>
+          </div>
+        </form>
+      @endif
+      </div>
       </div>
     </div>
 </div>

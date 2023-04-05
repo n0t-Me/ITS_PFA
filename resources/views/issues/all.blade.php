@@ -28,11 +28,12 @@
               <span class="badge bg-primary">Open</span>
             @else 
               <span class="badge bg-secondary">Closed</span>
-            @endif
+              @endif
+
             <span class="badge {{$status[$issue->severity]}}">Severity:{{$issue->severity}}</span>
           </div>
         </div>
-        <div class="fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->owner->name}}</div>
+        <div class="d-flex justify-content-between"><div class="fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->owner->name}}</div><div class="fs-8 fw-lighter fst-italic text-secondary">Comments count:{{$issue->comments_count}}</div></div>
       </div>
     @endforeach
     </table>

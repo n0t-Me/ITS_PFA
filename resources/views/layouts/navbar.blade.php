@@ -16,9 +16,18 @@
                         <ul class="nav-item dropdown" id="dropdownIssues">
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Issues</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownIssues">
-                            <a class="dropdown-item" href="{{ route('createIssue' )}}">New Issue</a>
-                            <a class="dropdown-item" href="{{ route('allIssues')}}">All Issues</a>
-                            <a class="dropdown-item" href="{{ route('myissues') }}">My Issues</a>
+                            <a class="dropdown-item" href="{{ route('createIssue' )}}"><i class="bi bi-plus-circle text-info"></i> New Issue</a>
+                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-list text-info"></i> All Issues</a>
+                            <a class="dropdown-item" href="{{ route('myissues') }}"><i class="bi bi-tag text-info"></i> My Issues</a>
+                          </div>
+                        </ul>
+                      </li>
+                      <li>
+                        <ul class="nav-item dropdown" id="dropdownTeams">
+                          <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Teams</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownIssues">
+                            <a class="dropdown-item" href="{{ route('createTeam' )}}"><i class="bi bi-plus-circle text-info"></i> New Team</a>
+                            <a class="dropdown-item" href="{{ route('allTeams')}}"><i class="bi bi-person-lines-fill text-info"></i> All Teams</a>
                           </div>
                         </ul>
                       </li>
@@ -47,10 +56,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="bi bi-person text-info"></i> Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                        <i class="bi bi-power text-danger"></i> 
                                         {{ __('Logout') }}
                                     </a>
 

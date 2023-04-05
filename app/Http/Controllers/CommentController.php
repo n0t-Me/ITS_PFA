@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Attachement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +35,19 @@ class CommentController extends Controller
       $comment->issue_id = $id;
       $comment->owner_id = Auth::user()->id;
       $comment->save();
+      $files = $request->file('files');
+      # Continue from here
+      if ($files) {
+        foreach ($files as $file) {
+          $filename = $file->getClientOriginalName();
+          $path = $file->store('comments', 'public');
+          $att = new Attachement();
+          $att->name = $filename;
+          $att->path = $path;
+          $att->comment_id = $comment->getKey();
+          $att->save();
+        }
+      }
       return back();
     }
 

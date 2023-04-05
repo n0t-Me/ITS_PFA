@@ -1,4 +1,4 @@
-# ITS_PFA 1A
+# ITS_PFA 1A (~50% complete)
 End of Year Project (Issue Tracking System)
 
 ## Running
@@ -56,20 +56,20 @@ php artisan ui bootstrap --auth
 - [ ] /issues/search
 - [x] /issues/create
 - [x] /issues/my
-- [ ] /issues/{id}
+- [x] /issues/{id}
 - [ ] /issues/{id}/update 
 - [ ] /issues/{id}/delete 
 - [ ] /issues/{id}/close 
 - [ ] /issues/{id}/open 
-- [ ] /issues/{id}/close 
-- [ ] /issues/{id}/comments
-- [ ] /issues/{id}/comments/new 
+- [x] /issues/{id}/newComment
 - [ ] /issues/{id}/comments/{comment_id}/update 
 - [ ] /issues/{id}/comments/{comment_id}/delete 
 
-- [ ] /teams/search 
-- [ ] /teams/{id}
-- [ ] /teams/{id}/join 
+- [x] /teams 
+- [x] /teams/create
+- [x] /teams/{id}
+- [x] /teams/{id}/delete
+- [x] /teams/changeTeam
 
 - [ ] /admin/dashboard
 - [ ] /admin/profile
@@ -78,9 +78,3 @@ php artisan ui bootstrap --auth
 - [ ] /admin/users/{id}/update 
 - [ ] /admin/users/{id}/block
 - [ ] /admin/users/{id}/delete 
-
-- [ ] /admin/teams/create 
-- [ ] /admin/teams/{id}/update 
-- [ ] /admin/teams/{id}/delete 
-- [ ] /admin/users/{id}/addToTeam
-

@@ -22,6 +22,7 @@ class IssueController extends Controller
     {
       return view('issues.all',[
         'issues' => Issue::with('owner')
+          ->withCount('comments')
           ->orderBy('issues.status')
           ->orderBy('issues.severity', 'desc')
           ->orderBy('issues.opened_at', 'desc')
@@ -93,7 +94,7 @@ class IssueController extends Controller
     public function show(int $id)
     {
       return view('issues.show',[
-        'issue' => Issue::with(['owner', 'attachements', 'comments', 'comments.owner'])->find($id)
+        'issue' => Issue::with(['owner', 'attachements', 'comments', 'comments.owner', 'comments.attachements'])->find($id)
       ]);
     }
 

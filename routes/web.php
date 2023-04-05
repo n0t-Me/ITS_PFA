@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\TeamController;
+use App\Http\Controllers\IssueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,18 +21,30 @@ Route::redirect('/', '/login');
 
 Auth::routes(['register' => false]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/issues/create', [App\Http\Controllers\IssueController::class, 'create'])->name('createIssue');
+Route::get('/issues/create', [IssueController::class, 'create'])->name('createIssue');
 
-Route::post('/issues/create', [App\Http\Controllers\IssueController::class, 'store'])->name('storeIssue');
+Route::post('/issues/create', [IssueController::class, 'store'])->name('storeIssue');
 
-Route::get('/issues', [App\Http\Controllers\IssueController::class, 'all'])->name('allIssues');
+Route::get('/issues', [IssueController::class, 'all'])->name('allIssues');
 
-Route::get('/issues/my', [App\Http\Controllers\IssueController::class, 'myissues'])->name('myissues');
+Route::get('/issues/my', [IssueController::class, 'myissues'])->name('myissues');
 
-Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show']);
+Route::get('/issues/{id}', [IssueController::class, 'show']);
 
-Route::post('/issues/{id}/newComment', [App\Http\Controllers\CommentController::class, 'store']);
+Route::post('/issues/{id}/newComment', [CommentController::class, 'store']);
 
-Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');
+Route::get('/teams', [TeamController::class, 'all'])->name('allTeams');
+
+Route::get('/teams/create', [TeamController::class, 'create'])->name('createTeam');
+
+Route::post('/teams/create', [TeamController::class, 'store'])->name('storeTeam');
+
+Route::get('/teams/{id}', [TeamController::class, 'show']);
+
+Route::get('/teams/{id}/delete', [TeamController::class, 'delete']);
+
+Route::post('/teams/changeTeam', [TeamController::class, 'changeTeam'])->name('changeTeam');
+
+Route::get('/profile', [UserController::class, 'profile'])->name('profile');
