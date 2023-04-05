@@ -40,7 +40,7 @@ class TeamController extends Controller
         $team->hidden = False;
       }
       $team->save();
-      return redirect("allTeams");
+      return redirect(route("allTeams"));
     }
 
     /**
@@ -65,9 +65,18 @@ class TeamController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Team $team)
+    public function edit(Request $request, int $id)
     {
-        //
+      $team = Team::find($id);
+      $team->name = $request->name;
+      $team->description = $request->description;
+      if ($request->hidden === "on") {
+        $team->hidden = True;
+      } else {
+        $team->hidden = False;
+      }
+      $team->save();
+      return back();
     }
 
     /**

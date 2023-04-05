@@ -21,13 +21,24 @@
     <div class="card">
       <div class="d-flex card-header justify-content-between">
         <strong>{{$issue->title}}</strong>
-        <div>
+        <div class="hstack">
           @if ($issue->status === "Open")
             <span class="badge bg-primary">Open</span>
           @else
             <span class="badge bg-secondary">Closed</span>
           @endif
           <span class="badge {{ $status[$issue->severity] }}">Severity:{{$issue->severity}}</span>
+<div class="dropdown show">
+@if ($issue->owner_id === Auth::user()->id) 
+<!--Continue from here -->
+            <a class="btn" id="dropdownIssue" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownIssue">
+              <button class="dropdown-item" href="#">Edit Issue</button>
+              <button class="dropdown-item" data-bs-issueid="{{$issue->id}}">Close Issue</button>
+            </div>
+          @endif
+          </div>
+          
         </div>
       </div>
       <div class="card-body">
@@ -46,7 +57,7 @@
         @endif
       </div>
     </div>
-      <div class="d-flex flex-row justify-content-end">
+      <div class="d-flex flex-row justify-content-start">
       <div class="col-md-11">
       @if (count($issue->comments) > 0)
       <hr class=""/>

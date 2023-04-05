@@ -31,6 +31,16 @@
                           </div>
                         </ul>
                       </li>
+                      <li>
+                        <ul class="nav-item dropdown" id="dropdownUsers">
+                          <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownUsers">
+                            <a class="dropdown-item" href="{{ route('createTeam' )}}"><i class="bi bi-person-fill-add text-info"></i> New User</a>
+                            <a class="dropdown-item" href="{{ route('allTeams')}}"><i class="bi bi-person-rolodex text-info"></i> All Users</a>
+                          </div>
+                        </ul>
+                      </li>
+ 
                     </ul>
                     @endauth
 
@@ -56,7 +66,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="bi bi-person text-info"></i> Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="bi bi-person-gear text-info"></i> Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

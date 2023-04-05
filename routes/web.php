@@ -45,6 +45,8 @@ Route::get('/teams/{id}', [TeamController::class, 'show']);
 
 Route::get('/teams/{id}/delete', [TeamController::class, 'delete']);
 
+Route::post('/teams/{id}/edit', [TeamController::class, 'edit']);
+
 Route::post('/teams/changeTeam', [TeamController::class, 'changeTeam'])->name('changeTeam');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');

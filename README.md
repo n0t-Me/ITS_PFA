@@ -57,18 +57,20 @@ php artisan ui bootstrap --auth
 - [x] /issues/create
 - [x] /issues/my
 - [x] /issues/{id}
-- [ ] /issues/{id}/update 
-- [ ] /issues/{id}/delete 
-- [ ] /issues/{id}/close 
-- [ ] /issues/{id}/open 
+- [ ] /issues/{id}/update _WIP_
+- [ ] /issues/{id}/delete _WIP_
+- [ ] /issues/{id}/close _WIP_ 
+- [ ] /issues/{id}/open _WIP_ 
 - [x] /issues/{id}/newComment
 - [ ] /issues/{id}/comments/{comment_id}/update 
 - [ ] /issues/{id}/comments/{comment_id}/delete 
 
 - [x] /teams 
+- [ ] /teams/search
 - [x] /teams/create
 - [x] /teams/{id}
 - [x] /teams/{id}/delete
+- [x] /teams/{id}/edit
 - [x] /teams/changeTeam
 
 - [ ] /admin/dashboard
