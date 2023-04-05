@@ -267,43 +267,4 @@ $(function () {
 
 
 
-  //ajout par moi-meme
-
-  // Sélectionner la balise canvas
-var ctx = document.getElementById("bar-chart").getContext("2d");
-
-// Définir les données du graphique
-var data = {
-  labels: ["Grave", "Moyenne", "Faible"],
-  datasets: [
-    {
-      label: "Nombre de problèmes",
-      data: [5, 10, 15],
-      backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-    }
-  ]
-};
-
-// Définir les options du graphique
-var options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true
-        }
-      }
-    ]
-  }
-};
-
-// Créer le graphique en barres
-var barChart = new Chart(ctx, {
-  type: "bar",
-  data: data,
-  options: options
-});
-
 })
