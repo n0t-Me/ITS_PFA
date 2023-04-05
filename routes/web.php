@@ -15,30 +15,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
 Route::get('/issues/create', [App\Http\Controllers\IssueController::class, 'create'])->name('createIssue');
-
-Auth::routes();
 
 Route::post('/issues/create', [App\Http\Controllers\IssueController::class, 'store'])->name('storeIssue');
 
-Auth::routes();
-
 Route::get('/issues', [App\Http\Controllers\IssueController::class, 'all'])->name('allIssues');
-
-Auth::routes();
 
 Route::get('/issues/my', [App\Http\Controllers\IssueController::class, 'myissues'])->name('myissues');
 
-Auth::routes();
-
 Route::get('/issues/{id}', [App\Http\Controllers\IssueController::class, 'show']);
 
-Auth::routes();
+Route::post('/issues/{id}/newComment', [App\Http\Controllers\CommentController::class, 'store']);
 
 Route::get('/profile', [App\Http\Controllers\UserController::class, 'profile'])->name('profile');

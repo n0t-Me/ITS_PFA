@@ -11,11 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('teams', function (Blueprint $table) {
+        Schema::create('attachements', function (Blueprint $table) {
           $table->id();
           $table->string('name');
-          $table->text('description');
-          $table->boolean('hidden')->default(False);
+          $table->text('path')->unique();
+          $table->unsignedBigInteger('issue_id')->nullable();
+          $table->unsignedBigInteger('comment_id')->nullable();
+          $table->foreign('issue_id')->references('id')->on('issues');
+//          $table->foreign('owner_id')->references('id')->on('comments');
           $table->timestamps();
         });
     }
@@ -25,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('teams');
+        Schema::dropIfExists('attachements');
     }
 };

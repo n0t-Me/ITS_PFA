@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attachement;
 use App\Models\Issue;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,7 +21,7 @@ class IssueController extends Controller
     public function all()
     {
       return view('issues.all',[
-        'issues' => Issue::with('getOwner')
+        'issues' => Issue::with('owner')
           ->orderBy('issues.status')
           ->orderBy('issues.severity', 'desc')
           ->orderBy('issues.opened_at', 'desc')
@@ -30,7 +32,7 @@ class IssueController extends Controller
     public function myissues()
     {
       return view('issues.all',[
-        'issues' => Issue::with('getOwner')
+        'issues' => Issue::with('owner')
           ->where('issues.owner_id', '=', Auth::user()->id)
           ->orderBy('issues.status')
           ->orderBy('issues.severity', 'desc')
@@ -51,7 +53,9 @@ class IssueController extends Controller
      */
     public function create()
     {
-        return view('issues.create');
+      return view('issues.create',[
+        'teams' => Team::all()->where('hidden', False)
+      ]);
     }
 
     /**
@@ -64,16 +68,22 @@ class IssueController extends Controller
       $issue->description = $request->description;
       $issue->severity = $request->severity + 0;
       $issue->owner_id = Auth::user()->id;
-      $issue->team_id = User::find($issue->owner_id)->team_id;
+      $issue->team_id = $request->team;
+      $issue->save();
 
       $files = $request->file('files');
       # Continue from here
-      foreach ($files as $file) {
-        $filename = $file->getClientOriginalName();
-        $extension = $file->getClientOriginalExtension();
+      if ($files) {
+        foreach ($files as $file) {
+          $filename = $file->getClientOriginalName();
+          $path = $file->store('issues', 'public');
+          $att = new Attachement();
+          $att->name = $filename;
+          $att->path = $path;
+          $att->issue_id = $issue->getKey();
+          $att->save();
+        }
       }
-
-      $issue->save();
       return redirect(route('allIssues'));
     }
 
@@ -83,7 +93,7 @@ class IssueController extends Controller
     public function show(int $id)
     {
       return view('issues.show',[
-        'issue' => Issue::with('getOwner')->find($id)
+        'issue' => Issue::with(['owner', 'attachements', 'comments', 'comments.owner'])->find($id)
       ]);
     }
 

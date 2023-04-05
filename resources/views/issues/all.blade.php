@@ -18,11 +18,9 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <table class="col-md-8 table table-hover">
-    <th class="border-dark">{{$title}}</th>
+    <p class="fs-4">{{$title}}</p>
     @foreach ($issues as $issue)
-      <tr><td>
-      <div>
+      <div class="card card-body mb-4">
         <div class="d-flex justify-content-between">
           <a class="hover-blue" style="text-decoration: none;color: black;" href="{{url('/issues/'.$issue->id)}}">{{ $issue->title }}</a>
           <div>
@@ -34,9 +32,8 @@
             <span class="badge {{$status[$issue->severity]}}">Severity:{{$issue->severity}}</span>
           </div>
         </div>
-        <div class="mt-1 fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->getowner->name}}</div>
+        <div class="fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->owner->name}}</div>
       </div>
-      </td></tr>
     @endforeach
     </table>
   </div>

@@ -10,6 +10,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="navbar-nav me-auto">
                       <li>
                         <ul class="nav-item dropdown" id="dropdownIssues">
@@ -21,8 +22,8 @@
                           </div>
                         </ul>
                       </li>
-
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">

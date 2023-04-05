@@ -5,19 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Issue extends Model
+class Comment extends Model
 {
   use HasFactory;
-
   public function owner() {
     return $this->belongsTo(User::class, 'owner_id', 'id');
   }
 
   public function attachements() {
-    return $this->hasMany(Attachement::class, 'issue_id', 'id');
-  }
-
-  public function comments() {
-    return $this->hasMany(Comment::class, 'issue_id', 'id');
+    return $this->hasMany(Attachement::class, 'comment_id', 'id');
   }
 }
