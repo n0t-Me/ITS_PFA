@@ -1,4 +1,4 @@
-# ITS_PFA 1A (~50% complete)
+# ITS_PFA 1A (MVP ~70% complete)
 End of Year Project (Issue Tracking System)
 
 ## Running
@@ -61,7 +61,7 @@ php artisan ui bootstrap --auth
 
 - [x] /login
 - [ ] /dashboard 
-- [ ] /profile
+- [x] /profile
 
 - [x] /issues
 - [ ] /issues/search
@@ -86,4 +86,6 @@ php artisan ui bootstrap --auth
 
 - [x] /users
 - [x] /users/create 
-- 
+- [x] /users/{id}/resetPassword
+- [x] /users/{id}/updateInfo
+- [x] /users/{id}/updatePassword
