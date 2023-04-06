@@ -27,43 +27,54 @@ php artisan ui bootstrap --auth
 - Teams(
   id INT,
   name VARCHAR(255),
+  description TEXT,
 )
 
 - Issues(
   id,
   title VARCHAR(255),
+  description TEXT,
   status ENUM('Open', 'Closed'),
   severity INT,
+  opened_at DATE,
+  closed_at DATE,
   team_id FK teams.id,
   owner_id FK users.id,
-  assignee_id FK users.id
+  assignee_id FK users.id,
 )
 
 - Comments(
+  id,
   issue_id INT,
   owner FK users.id,
   comment TEXT,
 )
 
+- Attachements(
+  id,
+  path VARCHAR(255),
+  issue_id FK issues.id,
+  comment_id FK comments.id,
+)
+
 ## Routes:
 
 - [x] /login
-- [x] /register
-- [x] /dashboard 
+- [ ] /dashboard 
 - [ ] /profile
 
 - [x] /issues
 - [ ] /issues/search
 - [x] /issues/create
 - [x] /issues/my
+- [x] /issues/assigned 
 - [x] /issues/{id}
-- [ ] /issues/{id}/update _WIP_
-- [ ] /issues/{id}/delete _WIP_
-- [ ] /issues/{id}/close _WIP_ 
-- [ ] /issues/{id}/open _WIP_ 
+- [x] /issues/{id}/edit 
+- [x] /issues/{id}/close 
 - [x] /issues/{id}/newComment
-- [ ] /issues/{id}/comments/{comment_id}/update 
-- [ ] /issues/{id}/comments/{comment_id}/delete 
+
+- [x] /comments/{id}/edit 
+- [x] /comments/{id}/delete 
 
 - [x] /teams 
 - [ ] /teams/search
@@ -73,10 +84,6 @@ php artisan ui bootstrap --auth
 - [x] /teams/{id}/edit
 - [x] /teams/changeTeam
 
-- [ ] /admin/dashboard
-- [ ] /admin/profile
-- [ ] /admin/...all the issues stuff
-- [ ] /admin/users/search 
-- [ ] /admin/users/{id}/update 
-- [ ] /admin/users/{id}/block
-- [ ] /admin/users/{id}/delete 
+- [x] /users
+- [x] /users/create 
+- 
