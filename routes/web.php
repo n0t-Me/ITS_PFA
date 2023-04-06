@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\IssueController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,9 +32,21 @@ Route::get('/issues', [IssueController::class, 'all'])->name('allIssues');
 
 Route::get('/issues/my', [IssueController::class, 'myissues'])->name('myissues');
 
+Route::get('/issues/assigned', [IssueController::class, 'assignedissues'])->name('assignedIssues');
+
 Route::get('/issues/{id}', [IssueController::class, 'show']);
 
+Route::post('/issues/{id}/edit', [IssueController::class, 'edit']);
+
+Route::get('/issues/{id}/close', [IssueController::class, 'close']);
+
+Route::post('/issues/{id}/assign_to', [IssueController::class, 'assign']);
+
 Route::post('/issues/{id}/newComment', [CommentController::class, 'store']);
+
+Route::post('/comments/{id}/edit', [CommentController::class, 'edit']);
+
+Route::get('/comments/{id}/delete', [CommentController::class, 'delete']);
 
 Route::get('/teams', [TeamController::class, 'all'])->name('allTeams');
 
@@ -48,5 +61,11 @@ Route::get('/teams/{id}/delete', [TeamController::class, 'delete']);
 Route::post('/teams/{id}/edit', [TeamController::class, 'edit']);
 
 Route::post('/teams/changeTeam', [TeamController::class, 'changeTeam'])->name('changeTeam');
+
+Route::get('/users', [UserController::class, 'all'])->name('allUsers');
+
+Route::get('/users/create', [UserController::class, 'create'])->name('createUser');
+
+Route::post('/users/create', [UserController::class, 'store'])->name('storeUser');
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');

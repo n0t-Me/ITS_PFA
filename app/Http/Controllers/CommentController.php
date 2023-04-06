@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Attachement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CommentController extends Controller
 {
@@ -62,9 +63,12 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Comment $comment)
+    public function edit(Request $request, int $id)
     {
-        //
+      $comment = Comment::find($id);
+      $comment->comment = $request->comment;
+      $comment->save();
+      return back();
     }
 
     /**
@@ -78,8 +82,14 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Comment $comment)
+    public function delete(int $id)
     {
-        //
+      Comment::destroy($id);
+      $atts = Attachement::all()->where('comment_id','=',$id);
+      foreach($atts as $att) {
+        Storage::disk('public')->delete($att->path);
+        Attachement::destroy($att->id);
+      };
+      return back();
     }
 }

@@ -20,26 +20,55 @@ class IssueController extends Controller
     }
     public function all()
     {
-      return view('issues.all',[
-        'issues' => Issue::with('owner')
-          ->withCount('comments')
-          ->orderBy('issues.status')
-          ->orderBy('issues.severity', 'desc')
-          ->orderBy('issues.opened_at', 'desc')
-          ->get(),
-        'title' => 'All Issues'
-      ]);
+      $role = Auth::user()->role;
+      if ($role === "admin") {
+        return view('issues.all',[
+          'issues' => Issue::with('owner')
+            ->withCount('comments')
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'All Reported Issues'
+        ]);
+      }
+      if ($role === "team-admin") {
+        return view('issues.all',[
+          'issues' => Issue::with('owner')
+            ->withCount('comments')
+            ->where('team_id','=',Auth::user()->team_id)
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'Reported Issues'
+        ]);
+      }
     }
     public function myissues()
     {
       return view('issues.all',[
         'issues' => Issue::with('owner')
           ->where('issues.owner_id', '=', Auth::user()->id)
+          ->withCount('comments')
           ->orderBy('issues.status')
           ->orderBy('issues.severity', 'desc')
           ->orderBy('issues.opened_at', 'desc')
           ->get(),
         'title' => 'My Issues'
+      ]);
+    }
+    public function assignedissues()
+    {
+      return view('issues.all',[
+        'issues' => Issue::with(['owner', 'assignee'])
+          ->where('issues.assignee_id', '=', Auth::user()->id)
+          ->withCount('comments')
+          ->orderBy('issues.status')
+          ->orderBy('issues.severity', 'desc')
+          ->orderBy('issues.opened_at', 'desc')
+          ->get(),
+        'title' => 'Assigned Issues'
       ]);
     }
 
@@ -93,25 +122,49 @@ class IssueController extends Controller
      */
     public function show(int $id)
     {
+      $issue = Issue::with(['owner', 'attachements', 'comments', 'team','assignee','comments.owner', 'comments.attachements'])->find($id);
       return view('issues.show',[
-        'issue' => Issue::with(['owner', 'attachements', 'comments', 'comments.owner', 'comments.attachements'])->find($id)
+        'issue' => $issue,
+        'members' => User::where('team_id','=',$issue->team_id)
+          ->where('role','=','member')
+          ->get()
       ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Issue $issue)
+    public function edit(Request $request, int $id)
     {
-        //
+      $issue = Issue::find($id);
+      $issue->title = $request->title;
+      $issue->description = $request->description;
+      $issue->severity = $request->severity;
+      $issue->save();
+
+      return back();
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Issue $issue)
+    public function close(int $id)
     {
-        //
+      $issue = Issue::find($id);
+      if ($issue->status === "Open") {
+        $issue->status = "Closed";
+        $issue->closed_at = now();
+        $issue->save();
+      }
+      return back();
+    }
+
+    public function assign(Request $request, int $id)
+    {
+      $issue = Issue::find($id);
+      $issue->assignee_id = $request->assignee_id;
+      $issue->save();
+      return back();
     }
 
     /**

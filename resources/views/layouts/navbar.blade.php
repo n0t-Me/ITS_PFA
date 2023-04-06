@@ -17,11 +17,15 @@
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Issues</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownIssues">
                             <a class="dropdown-item" href="{{ route('createIssue' )}}"><i class="bi bi-plus-circle text-info"></i> New Issue</a>
-                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-list text-info"></i> All Issues</a>
+                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-flag text-info"></i> Reported Issues</a>
                             <a class="dropdown-item" href="{{ route('myissues') }}"><i class="bi bi-tag text-info"></i> My Issues</a>
+                            @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
+                            <a class="dropdown-item" href="{{ route('assignedIssues') }}"><i class="bi bi-person-workspace text-info"></i> Assigned Issues</a>
+                            @endif
                           </div>
                         </ul>
                       </li>
+                      @if(Auth::user()->role === "admin")
                       <li>
                         <ul class="nav-item dropdown" id="dropdownTeams">
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Teams</a>
@@ -31,16 +35,22 @@
                           </div>
                         </ul>
                       </li>
+                      @endif 
+                      @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
                       <li>
                         <ul class="nav-item dropdown" id="dropdownUsers">
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownUsers">
-                            <a class="dropdown-item" href="{{ route('createTeam' )}}"><i class="bi bi-person-fill-add text-info"></i> New User</a>
-                            <a class="dropdown-item" href="{{ route('allTeams')}}"><i class="bi bi-person-rolodex text-info"></i> All Users</a>
+                            @if(Auth::user()->role === "admin")
+                            <a class="dropdown-item" href="{{ route('createUser' )}}"><i class="bi bi-person-fill-add text-info"></i> New User</a>
+                            <a class="dropdown-item" href="{{ route('allUsers')}}"><i class="bi bi-person-rolodex text-info"></i> All Users</a>
+                            @elseif(Auth::user()->role === "team-admin")
+                            <a class="dropdown-item" href="{{ route('allUsers')}}"><i class="bi bi-person-rolodex text-info"></i> Team Members</a>
+                            @endif
                           </div>
                         </ul>
                       </li>
- 
+                      @endif
                     </ul>
                     @endauth
 

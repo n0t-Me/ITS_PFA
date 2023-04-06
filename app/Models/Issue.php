@@ -20,4 +20,12 @@ class Issue extends Model
   public function comments() {
     return $this->hasMany(Comment::class, 'issue_id', 'id');
   }
+
+  public function assignee() {
+    return $this->belongsTo(User::class, 'assignee_id', 'id');
+  }
+
+  public function team() {
+    return $this->belongsTo(Team::class, 'team_id', 'id');
+  }
 }

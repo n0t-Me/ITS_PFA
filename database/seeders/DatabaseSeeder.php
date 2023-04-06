@@ -17,11 +17,18 @@ class DatabaseSeeder extends Seeder
         \App\Models\Team::factory()->create(['name' => 'admins', 'description' => 'Administrator Team', 'hidden' => True]);
         \App\Models\Team::factory()->create(['name' => 'developers', 'description' => 'Developers Team', 'hidden' => False]);
         \App\Models\User::factory()->create([
-             'name' => 'admin',
+             'name' => 'dev admin',
              'email' => 'admin@its.local',
              'role' => 'admin',
              'password' => Hash::make('admin'),
              'team_id' => 3
+        ]);
+        \App\Models\User::factory()->create([
+          'name' => 'ahmed',
+          'email' => 'ahmed@its.local',
+          'role' => 'guest',
+          'password' => Hash::make('ahmed'),
+          'team_id' => 1
         ]);
         \App\Models\User::factory(10)->create();
         \App\Models\Issue::factory(20)->create();

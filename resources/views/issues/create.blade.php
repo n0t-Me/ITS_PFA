@@ -19,7 +19,8 @@
               </div>
               <div class="mb-3">
                 <label for="team">Report to:</label>
-                <select name="team" id="team" class="form-control">
+                <select name="team" id="team" class="form-control" required>
+                    <option value="" selected disabled>-- Choose a team --</option>
                   @foreach($teams as $team)
                     <option value="{{$team->id}}" data-toggle="tooltip" data-placement="top" title="{{$team->description}}">{{$team->name}}</option>
                   @endforeach
