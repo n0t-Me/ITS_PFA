@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AssignedToIssue;
 use App\Models\Attachement;
 use App\Models\Issue;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class IssueController extends Controller
 {
@@ -32,7 +34,7 @@ class IssueController extends Controller
           'title' => 'All Reported Issues'
         ]);
       }
-      if ($role === "team-admin") {
+      if ($role === "team-admin" || $role === "member") {
         return view('issues.all',[
           'issues' => Issue::with('owner')
             ->withCount('comments')
@@ -164,6 +166,9 @@ class IssueController extends Controller
       $issue = Issue::find($id);
       $issue->assignee_id = $request->assignee_id;
       $issue->save();
+
+      $user = User::find($request->assignee_id);
+      Mail::to($user->email)->send(new AssignedToIssue($issue->title));
       return back();
     }
 

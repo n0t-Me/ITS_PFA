@@ -17,13 +17,6 @@
                 <input id="email" name="email" type="email" class="form-control" placeholder="" required>
                 <label for="description">Email</label>
               </div>
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input id="password" name="password" type="password" class="form-control" placeholder="" required>
-                  <label for="password">Password</label>
-                </div>
-                <button id="showPasswordBtn" class="btn btn-primary"><i class="bi bi-eye-fill"></i></button>
-              </div>
               <div class="mb-3">
                 <select class="form-select" name="team_id" required>
                   <option value="" selected disabled>-- Choose a Team --</option>

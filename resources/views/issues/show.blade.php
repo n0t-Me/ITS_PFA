@@ -80,7 +80,7 @@
               <div><strong>{{$comment->owner->name}}</strong></div>
                 <div class="hstack gap-1">
                 <div class="fs-8 fst-italic fw-lighter text-secondary">{{$comment->created_at}}</div>
-                @if ($issue->owner_id === Auth::user()->id && $issue->status === "Open")
+                @if ($comment->owner_id === Auth::user()->id && $issue->status === "Open")
                   <a class="btn p-0" id="dropdownComment{{$comment->id}}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
                   <div class="dropdown-menu" aria-labelledby="dropdownComment{{$comment->id}}">
                   <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#commentModal" data-bs-commentid="{{$comment->id}}">Edit Comment</button>

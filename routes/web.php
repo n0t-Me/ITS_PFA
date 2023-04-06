@@ -68,4 +68,10 @@ Route::get('/users/create', [UserController::class, 'create'])->name('createUser
 
 Route::post('/users/create', [UserController::class, 'store'])->name('storeUser');
 
+Route::post('/users/updateInfo', [UserController::class, 'updateInfo'])->name('updateUserInfo');
+
+Route::post('/users/updatePassword', [UserController::class, 'updatePassword'])->name('updateUserPassword');
+
+Route::get('/users/{id}/resetPassword', [UserController::class, 'resetPassword']);
+
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
