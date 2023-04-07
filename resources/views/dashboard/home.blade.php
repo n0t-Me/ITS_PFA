@@ -100,7 +100,7 @@
 <!-- /.content -->
 <!-- end main content -->
 
-<!-- data gathering -->
+<!-- data gathering for charts-->
 @php
 $op_data_bar = 0;
 $cd_data_bar=0;
@@ -110,6 +110,41 @@ $op_data_bar=$op_data_bar+1;
 else 
 $cd_data_bar=$cd_data_bar+1;
 
+
+$sev_don_1=0;
+$sev_don_2=0;
+$sev_don_3=0;
+$sev_don_4=0;
+$sev_don_5=0;
+$sev_don_6=0;
+$sev_don_7=0;
+$sev_don_8=0;
+$sev_don_9=0;
+$sev_don_10=0;
+
+foreach ($issues as $issue)
+switch ($issue->severity){
+case "1" :
+  $sev_don_1++;break;
+case "2" :
+  $sev_don_2++;break;
+case "3" :
+  $sev_don_3++;break;
+case "4" :
+  $sev_don_4++;break;
+case "5" :
+  $sev_don_5++;break;
+case "6" :
+  $sev_don_6++;break;
+case "7" :
+  $sev_don_7++;break;
+case "8" :
+  $sev_don_8++;break;
+case "9" :
+  $sev_don_9++;break;
+case "10" :
+  $sev_don_10++;break;
+}
 @endphp
 
 @endsection

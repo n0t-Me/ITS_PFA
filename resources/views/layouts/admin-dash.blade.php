@@ -377,15 +377,21 @@
     var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
     var donutData        = {
       labels: [
-          'low',
-          'medium',
-          'high',
-          'urgent',
+          'severity_1',
+          'severity_2',
+          'severity_3',
+          'severity_4',
+          'severity_5',
+          'severity_6',
+          'severity_7',
+          'severity_8',
+          'severity_9',
+          'severity_10',
       ],
       datasets: [
         {
-          data: [700,500,400,600],
-          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef'],
+          data: [{{$sev_don_1}},{{$sev_don_2}},{{$sev_don_3}},{{$sev_don_4}},{{$sev_don_5}},{{$sev_don_6}},{{$sev_don_7}},{{$sev_don_8}},{{$sev_don_9}},{{$sev_don_10}}],
+          backgroundColor : ['#f56954','#f56954','#f56954', '#00a65a','#00a65a', '#f39c12','#f39c12','#f39c12', '#00c0ef', '#00c0ef'],
         }
       ]
     }
