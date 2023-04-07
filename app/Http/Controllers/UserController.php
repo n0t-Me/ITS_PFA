@@ -102,7 +102,7 @@ class UserController extends Controller
       $user->password = Hash::make($rand_pass);
       $user->save();
 
-      Mail::to(Auth::user()->email)->send(new PasswordReset($rand_pass));
+      Mail::to($user->email)->send(new PasswordReset($rand_pass));
       return back();
     }
 }

@@ -20,7 +20,10 @@ use App\Http\Controllers\CommentController;
 
 Route::redirect('/', '/login');
 
-Auth::routes(['register' => false]);
+Auth::routes([
+  'register' => false,
+  'reset' => false,
+]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -50,23 +53,23 @@ Route::get('/comments/{id}/delete', [CommentController::class, 'delete']);
 
 Route::get('/teams', [TeamController::class, 'all'])->name('allTeams');
 
-Route::get('/teams/create', [TeamController::class, 'create'])->name('createTeam');
+Route::get('/teams/create', [TeamController::class, 'create'])->name('createTeam')->middleware('admin');
 
-Route::post('/teams/create', [TeamController::class, 'store'])->name('storeTeam');
+Route::post('/teams/create', [TeamController::class, 'store'])->name('storeTeam')->middleware('admin');
 
 Route::get('/teams/{id}', [TeamController::class, 'show']);
 
-Route::get('/teams/{id}/delete', [TeamController::class, 'delete']);
+Route::get('/teams/{id}/delete', [TeamController::class, 'delete'])->middleware('admin');
 
-Route::post('/teams/{id}/edit', [TeamController::class, 'edit']);
+Route::post('/teams/{id}/edit', [TeamController::class, 'edit'])->middleware('admin');
 
-Route::post('/teams/changeTeam', [TeamController::class, 'changeTeam'])->name('changeTeam');
+Route::post('/teams/changeTeam', [TeamController::class, 'changeTeam'])->name('changeTeam')->middleware('admin');
 
 Route::get('/users', [UserController::class, 'all'])->name('allUsers');
 
-Route::get('/users/create', [UserController::class, 'create'])->name('createUser');
+Route::get('/users/create', [UserController::class, 'create'])->name('createUser')->middleware('admin');
 
-Route::post('/users/create', [UserController::class, 'store'])->name('storeUser');
+Route::post('/users/create', [UserController::class, 'store'])->name('storeUser')->middleware('admin');
 
 Route::post('/users/updateInfo', [UserController::class, 'updateInfo'])->name('updateUserInfo');
 
@@ -75,3 +78,5 @@ Route::post('/users/updatePassword', [UserController::class, 'updatePassword'])-
 Route::get('/users/{id}/resetPassword', [UserController::class, 'resetPassword']);
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
+
+?>

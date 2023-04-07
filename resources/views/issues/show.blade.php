@@ -30,7 +30,7 @@
           <span class="badge {{ $status[$issue->severity] }}">Severity:{{$issue->severity}}</span>
           <span class="badge bg-info">Team:{{$issue->team->name}}</span>
           <div class="dropdown show">
-          @if ((Auth::user()->role === "team-admin" || $issue->owner_id === Auth::user()->id) && $issue->status === "Open") 
+          @if ((Auth::user()->role === "team-admin" || $issue->owner_id === Auth::user()->id || $issue->assignee_id === Auth::user()->id) && $issue->status === "Open") 
             <a class="btn p-0" id="dropdownIssue" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
             <div class="dropdown-menu" aria-labelledby="dropdownIssue">
               <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#issueModal">Edit Issue</button>

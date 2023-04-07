@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class Admin
+class Member
 {
     /**
      * Handle an incoming request.
@@ -16,10 +15,9 @@ class Admin
      */
     public function handle(Request $request, Closure $next): Response
     {
-      if ($request->user()->role === 'admin') {
+      if ($request->user()->role === "member") {
         return $next($request);
-      } else {
-        return redirect(RouteServiceProvider::HOME);
       }
+      return abort(401);
     }
 }

@@ -45,15 +45,6 @@
   </div>
 </div>
 <script defer>
-var btn = document.getElementById("showPasswordBtn");
-btn.onclick = (e) => {
-  e.preventDefault();
-  var pwd = document.getElementById('password');
-  var is_pwd = pwd.type === 'password';
-  var eye = btn.children[0];
-  eye.attributes.class.nodeValue = is_pwd ? 'bi bi-eye-fill' : 'bi bi-eye-slash-fill';
-  pwd.type = is_pwd ? 'text' : 'password';
-}
 const team_select = document.querySelector('select[name="team_id"]');
 const role_select = document.querySelector('select[name="role"]');
 const checkNDisable = () => {
