@@ -77,6 +77,8 @@ Route::post('/users/updatePassword', [UserController::class, 'updatePassword'])-
 
 Route::get('/users/{id}/resetPassword', [UserController::class, 'resetPassword']);
 
+Route::get('/users/{id}/delete', [UserController::class, 'delete'])->middleware('admin');
+
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
 ?>

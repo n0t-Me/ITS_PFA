@@ -37,7 +37,7 @@
               @if (Auth::user()->role === "team-admin")
               <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#assignModal">Assign To</button>
               @endif
-              @if (Auth::user()->role === "team-admin" || Auth::user()->id === $issue->owner_id || Auth::user()->id === $issue->assignee_id)
+              @if (Auth::user()->role === "team-admin" || Auth::user()->id === $issue->assignee_id)
               <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#closeModal">Close Issue</button>
               @endif
             </div>

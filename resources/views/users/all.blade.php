@@ -23,6 +23,7 @@
               <a class="btn" id="dropdownUser{{$user->id}}" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
               <div class="dropdown-menu" aria-labelledby="dropdownUser{{$user->id}}">
                 <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#resetModal" data-bs-userid="{{$user->id}}"><i class="bi bi-arrow-clockwise"></i> Reset Password</button>
+                <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-userid="{{$user->id}}"><i class="bi bi-trash"></i> Delete User</button>
               </div>
             </div>
           </div>
@@ -50,6 +51,24 @@
    </div>
   </div>
 </div>
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true" aria-labelledby="deleteModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete User </h3>
+      </div>
+      <div class="modal-body">
+        <p>This operation is irrevocable</p>
+        <strong>Proceed?</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Delete User</button>
+      </div> 
+   </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 var resetModal = document.getElementById('resetModal')
 resetModal.addEventListener('show.bs.modal', function (event) {
@@ -69,5 +88,21 @@ resetModal.addEventListener('show.bs.modal', function (event) {
     window.location = "/users/" + recipient + "/resetPassword";
   }
 })
+var deleteModal = document.getElementById('deleteModal')
+deleteModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var recipient = button.getAttribute('data-bs-userid')
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var btn = deleteModal.querySelector('.modal-footer .btn-danger');
+  btn.onclick = () => {
+    window.location = "/users/" + recipient + "/delete";
+  }
+})
+
 </script>
 @endsection

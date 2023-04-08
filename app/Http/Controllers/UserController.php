@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\AccountCreated;
 use App\Mail\PasswordReset;
+use App\Mail\UserDeleted;
 use App\Models\User;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -103,6 +104,14 @@ class UserController extends Controller
       $user->save();
 
       Mail::to($user->email)->send(new PasswordReset($rand_pass));
+      return back();
+    }
+
+    public function delete(int $id)
+    {
+      $email = User::find($id)->email;
+      User::destroy($id);
+      Mail::to($email)->send(new UserDeleted());
       return back();
     }
 }

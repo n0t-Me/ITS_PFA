@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\AssignedToIssue;
+use App\Mail\IssueClosedAssignee;
 use App\Mail\IssueClosedOwner;
 use App\Models\Attachement;
 use App\Models\Issue;
@@ -153,12 +154,15 @@ class IssueController extends Controller
      */
     public function close(int $id)
     {
-      $issue = Issue::with('owner')->find($id);
+      $issue = Issue::with(['owner', 'assignee'])->find($id);
       if ($issue->status === "Open") {
         $issue->status = "Closed";
         $issue->closed_at = now();
         $issue->save();
         Mail::to($issue->owner->email)->send(new IssueClosedOwner($issue->title));
+        if ($issue->assignee) {
+          Mail::to($issue->assignee->email)->send(new IssueClosedAssignee($issue->title));
+        }
       }
       return back();
     }
