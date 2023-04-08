@@ -1,5 +1,11 @@
-# ITS_PFA 1A (MVP ~70% complete)
+# ITS_PFA 1A (MVP ~80% complete)
 End of Year Project (Issue Tracking System)
+
+## TODO
+
+- [ ] Dashboard 
+- [ ] Issue to PDF
+- [ ] Issue, Users, Teams Search 
 
 ## Running
 ```sh

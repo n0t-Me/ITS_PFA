@@ -70,9 +70,13 @@ class CommentController extends Controller
     public function edit(Request $request, int $id)
     {
       $comment = Comment::find($id);
-      $comment->comment = $request->comment;
-      $comment->save();
-      return back();
+      if ($request->user()->id === $comment->owner_id) {
+        $comment->comment = $request->comment;
+        $comment->save();
+        return back();
+      } else {
+        return abort(401);
+      }
     }
 
     /**
@@ -88,12 +92,17 @@ class CommentController extends Controller
      */
     public function delete(int $id)
     {
-      Comment::destroy($id);
-      $atts = Attachement::all()->where('comment_id','=',$id);
-      foreach($atts as $att) {
-        Storage::disk('public')->delete($att->path);
-        Attachement::destroy($att->id);
-      };
-      return back();
+      $owner_id = Comment::find($id)->owner_id;
+      if ($request->user()->id === $owner_id) {
+        Comment::destroy($id);
+        $atts = Attachement::all()->where('comment_id','=',$id);
+        foreach($atts as $att) {
+          Storage::disk('public')->delete($att->path);
+          Attachement::destroy($att->id);
+        };
+        return back();
+      } else {
+        return abort(401);
+      }
     }
 }

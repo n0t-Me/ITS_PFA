@@ -126,7 +126,13 @@ class IssueController extends Controller
      */
     public function show(int $id)
     {
+      $user = $request->user();
       $issue = Issue::with(['owner', 'attachements', 'comments', 'team','assignee','comments.owner', 'comments.attachements'])->find($id);
+      if (($user->role === "guest" && $user->id !== $issue->owner_id)
+        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
+      ) {
+        return abort(401);
+      }
       return view('issues.show',[
         'issue' => $issue,
         'members' => User::where('team_id','=',$issue->team_id)
@@ -140,7 +146,14 @@ class IssueController extends Controller
      */
     public function edit(Request $request, int $id)
     {
+      $user = $request->user();
       $issue = Issue::find($id);
+      if (($user->role === "guest" && $user->id !== $issue->owner_id)
+        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
+        || ($user->role === "member" && $user->id !== $issue->assignee_id)
+      ) {
+        return abort(401);
+      }
       $issue->title = $request->title;
       $issue->description = $request->description;
       $issue->severity = $request->severity;
@@ -155,6 +168,12 @@ class IssueController extends Controller
     public function close(int $id)
     {
       $issue = Issue::with(['owner', 'assignee'])->find($id);
+      if (($user->role === "guest" && $user->id !== $issue->owner_id)
+        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
+        || ($user->role === "member" && $user->id !== $issue->assignee_id)
+      ) {
+        return abort(401);
+      }
       if ($issue->status === "Open") {
         $issue->status = "Closed";
         $issue->closed_at = now();
@@ -170,6 +189,12 @@ class IssueController extends Controller
     public function assign(Request $request, int $id)
     {
       $issue = Issue::find($id);
+      if (($user->role !== "admin")
+        || ($user->role === "team-admin" && $user->team_id !== $issue->team_id)
+      ) {
+        return abort(401);
+      }
+
       $issue->assignee_id = $request->assignee_id;
       $issue->save();
 

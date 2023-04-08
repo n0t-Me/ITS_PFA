@@ -23,21 +23,5 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make('admin'),
              'team_id' => 2
         ]);
-        \App\Models\User::factory()->create([
-          'name' => 'ahmed',
-          'email' => 'ahmed@its.local',
-          'role' => 'team-admin',
-          'password' => Hash::make('ahmed'),
-          'team_id' => 3
-        ]);
-        \App\Models\User::factory()->create([
-          'name' => 'amine',
-          'email' => 'ahmedamine_belaroussia@um5.ac.ma',
-          'role' => 'member',
-          'password' => Hash::make('amine'),
-          'team_id' => 3
-        ]);
-        \App\Models\User::factory(10)->create();
-        \App\Models\Issue::factory(20)->create();
     }
 }
