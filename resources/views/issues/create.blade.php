@@ -5,7 +5,7 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-header">Create Issue</div>
+        <div class="card-header">Report Issue</div>
           <div class="card-body">
             <form method="POST" action="{{route('storeIssue')}}" enctype="multipart/form-data">
               @csrf
@@ -16,6 +16,15 @@
               <div class="form-floating mb-3">
                 <textarea id="description" name="description" class="form-control" placeholder="" style="height: 200px" required></textarea>
                 <label for="description">Description</label>
+              </div>
+              <div class="mb-3">
+                <label for="team">Report to:</label>
+                <select name="team" id="team" class="form-control" required>
+                    <option value="" selected disabled>-- Choose a team --</option>
+                  @foreach($teams as $team)
+                    <option value="{{$team->id}}" data-toggle="tooltip" data-placement="top" title="{{$team->description}}">{{$team->name}}</option>
+                  @endforeach
+                </select>
               </div>
               <div class="mb-3">
                 <label for="severity">Severity</label>
@@ -34,7 +43,7 @@
                 </datalist>
               </div>
               <div class="mb-3">
-                <label for="file">Attachement</label>
+                <label for="file">Attachements</label>
                 <input class="form-control" name="files[]" id="file" type="file" multiple>
               </div>
               <div class="mb-3">

@@ -17,7 +17,6 @@ return new class extends Migration
           $table->text('description');
           $table->enum('status', ['Open', 'Closed'])->default('Open');
           $table->integer('severity');
-          $table->multiLineString('attachements')->nullable();
           $table->timestamp('opened_at')->useCurrent();
           $table->timestamp('closed_at')->nullable();
           $table->unsignedBigInteger('team_id');

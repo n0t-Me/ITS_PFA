@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function all()
     {
-        //
+      return view('teams.all',[
+        'teams' => Team::all()
+      ]);
     }
 
     /**
@@ -20,7 +27,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+      return view('teams.create');
     }
 
     /**
@@ -28,23 +35,52 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $team = new Team();
+      $team->name = $request->name;
+      $team->description = $request->description;
+      if ($request->hidden === "on") {
+        $team->hidden = True;
+      } else {
+        $team->hidden = False;
+      }
+      $team->save();
+      return redirect(route("allTeams"));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Team $team)
+    public function show(int $id)
     {
-        //
+      return view('teams.show',[
+        'team' => Team::with('members')->find($id),
+        'teams' => Team::all()
+      ]);
+    }
+
+    public function changeTeam(Request $request)
+    {
+      $user = User::find($request->userid);
+      $user->team_id = $request->team_id;
+      $user->save();
+      return back();
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Team $team)
+    public function edit(Request $request, int $id)
     {
-        //
+      $team = Team::find($id);
+      $team->name = $request->name;
+      $team->description = $request->description;
+      if ($request->hidden === "on") {
+        $team->hidden = True;
+      } else {
+        $team->hidden = False;
+      }
+      $team->save();
+      return back();
     }
 
     /**
@@ -58,8 +94,12 @@ class TeamController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Team $team)
+    public function delete(int $id)
     {
-        //
+      if ($id > 2) {
+        User::where('team_id', '=' ,$id)->update(['team_id' => 1]);
+        Team::destroy($id);
+      }
+      return back();
     }
 }

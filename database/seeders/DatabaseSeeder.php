@@ -13,16 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Team::factory()->create(['name' => 'guests']);
-        \App\Models\Team::factory()->create(['name' => 'admins']);
+        \App\Models\Team::factory()->create(['name' => 'guests', 'description' => 'Team for guests', 'hidden' => True]);
+        \App\Models\Team::factory()->create(['name' => 'admins', 'description' => 'Administrator Team', 'hidden' => True]);
+        \App\Models\Team::factory()->create(['name' => 'developers', 'description' => 'Developers Team', 'hidden' => False]);
         \App\Models\User::factory()->create([
-             'name' => 'admin',
+             'name' => 'great admin',
              'email' => 'admin@its.local',
              'role' => 'admin',
              'password' => Hash::make('admin'),
              'team_id' => 2
         ]);
-        \App\Models\User::factory(10)->create();
-        \App\Models\Issue::factory(20)->create();
     }
 }

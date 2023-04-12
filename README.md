@@ -1,5 +1,11 @@
-# ITS_PFA 1A 
+# ITS_PFA 1A (MVP ~80% complete)
 End of Year Project (Issue Tracking System)
+
+## TODO
+
+- [ ] Dashboard 
+- [ ] Issue to PDF
+- [ ] Issue, Users, Teams Search 
 
 ## Running
 ```sh
@@ -27,60 +33,65 @@ php artisan ui bootstrap --auth
 - Teams(
   id INT,
   name VARCHAR(255),
+  description TEXT,
 )
 
 - Issues(
   id,
   title VARCHAR(255),
+  description TEXT,
   status ENUM('Open', 'Closed'),
   severity INT,
+  opened_at DATE,
+  closed_at DATE,
   team_id FK teams.id,
   owner_id FK users.id,
-  assignee_id FK users.id
+  assignee_id FK users.id,
 )
 
 - Comments(
+  id,
   issue_id INT,
   owner FK users.id,
   comment TEXT,
 )
 
+- Attachements(
+  id,
+  path VARCHAR(255),
+  issue_id FK issues.id,
+  comment_id FK comments.id,
+)
+
 ## Routes:
 
 - [x] /login
-- [x] /register
-- [x] /dashboard 
-- [ ] /profile
+- [ ] /dashboard 
+- [x] /profile
 
 - [x] /issues
 - [ ] /issues/search
 - [x] /issues/create
 - [x] /issues/my
-- [ ] /issues/{id}
-- [ ] /issues/{id}/update 
-- [ ] /issues/{id}/delete 
-- [ ] /issues/{id}/close 
-- [ ] /issues/{id}/open 
-- [ ] /issues/{id}/close 
-- [ ] /issues/{id}/comments
-- [ ] /issues/{id}/comments/new 
-- [ ] /issues/{id}/comments/{comment_id}/update 
-- [ ] /issues/{id}/comments/{comment_id}/delete 
+- [x] /issues/assigned 
+- [x] /issues/{id}
+- [x] /issues/{id}/edit 
+- [x] /issues/{id}/close 
+- [x] /issues/{id}/newComment
 
-- [ ] /teams/search 
-- [ ] /teams/{id}
-- [ ] /teams/{id}/join 
+- [x] /comments/{id}/edit 
+- [x] /comments/{id}/delete 
 
-- [ ] /admin/dashboard
-- [ ] /admin/profile
-- [ ] /admin/...all the issues stuff
-- [ ] /admin/users/search 
-- [ ] /admin/users/{id}/update 
-- [ ] /admin/users/{id}/block
-- [ ] /admin/users/{id}/delete 
+- [x] /teams 
+- [ ] /teams/search
+- [x] /teams/create
+- [x] /teams/{id}
+- [x] /teams/{id}/delete
+- [x] /teams/{id}/edit
+- [x] /teams/changeTeam
 
-- [ ] /admin/teams/create 
-- [ ] /admin/teams/{id}/update 
-- [ ] /admin/teams/{id}/delete 
-- [ ] /admin/users/{id}/addToTeam
-
+- [x] /users
+- [x] /users/create 
+- [x] /users/{id}/resetPassword
+- [x] /users/{id}/updateInfo
+- [x] /users/{id}/updatePassword

@@ -10,19 +10,49 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @auth
                     <ul class="navbar-nav me-auto">
                       <li>
                         <ul class="nav-item dropdown" id="dropdownIssues">
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Issues</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownIssues">
-                            <a class="dropdown-item" href="{{ route('createIssue' )}}">New Issue</a>
-                            <a class="dropdown-item" href="{{ route('allIssues')}}">All Issues</a>
-                            <a class="dropdown-item" href="{{ route('myissues') }}">My Issues</a>
+                            <a class="dropdown-item" href="{{ route('createIssue' )}}"><i class="bi bi-plus-circle text-info"></i> New Issue</a>
+                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-flag text-info"></i> Reported Issues</a>
+                            <a class="dropdown-item" href="{{ route('myissues') }}"><i class="bi bi-tag text-info"></i> My Issues</a>
+                            @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
+                            <a class="dropdown-item" href="{{ route('assignedIssues') }}"><i class="bi bi-person-workspace text-info"></i> Assigned Issues</a>
+                            @endif
                           </div>
                         </ul>
                       </li>
-
+                      @if(Auth::user()->role === "admin")
+                      <li>
+                        <ul class="nav-item dropdown" id="dropdownTeams">
+                          <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Teams</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownIssues">
+                            <a class="dropdown-item" href="{{ route('createTeam' )}}"><i class="bi bi-plus-circle text-info"></i> New Team</a>
+                            <a class="dropdown-item" href="{{ route('allTeams')}}"><i class="bi bi-person-lines-fill text-info"></i> All Teams</a>
+                          </div>
+                        </ul>
+                      </li>
+                      @endif 
+                      @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
+                      <li>
+                        <ul class="nav-item dropdown" id="dropdownUsers">
+                          <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Users</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdownUsers">
+                            @if(Auth::user()->role === "admin")
+                            <a class="dropdown-item" href="{{ route('createUser' )}}"><i class="bi bi-person-fill-add text-info"></i> New User</a>
+                            <a class="dropdown-item" href="{{ route('allUsers')}}"><i class="bi bi-person-rolodex text-info"></i> All Users</a>
+                            @elseif(Auth::user()->role === "team-admin")
+                            <a class="dropdown-item" href="{{ route('allUsers')}}"><i class="bi bi-person-rolodex text-info"></i> Team Members</a>
+                            @endif
+                          </div>
+                        </ul>
+                      </li>
+                      @endif
                     </ul>
+                    @endauth
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -46,10 +76,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Profile</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}"><i class="bi bi-person-gear text-info"></i> Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                        <i class="bi bi-power text-danger"></i> 
                                         {{ __('Logout') }}
                                     </a>
 
