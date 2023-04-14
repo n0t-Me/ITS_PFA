@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Issue;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,8 @@ class HomeController extends Controller
     public function index()
     {
         return view('dashboard.home',[
-            'issues' => Issue::with('getOwner')
+            'issues' => Issue::with('owner')
+              ->withCount('comments')
               ->orderBy('issues.status')
               ->orderBy('issues.severity', 'desc')
               ->orderBy('issues.opened_at', 'desc')

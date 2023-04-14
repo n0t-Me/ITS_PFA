@@ -129,7 +129,8 @@
             </a>
           </li>
           
-        <!-- issues -->
+  @auth
+       <!-- issues -->
           <li class="nav-item">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-edit"></i>
@@ -142,24 +143,93 @@
               <li class="nav-item">
                 <a href="{{route('allIssues')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <i class="nav-icon fas fa-table"></i>
-                  <p>All issues</p>
+                  <p>Reported issues</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{route('createIssue')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Report Issue</p>
+                  <p>New Issue</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="{{ route('myissues') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>show issue</p>
+                  <p>My Issues</p>
                 </a>
               </li>
+  @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
+  <li class="nav-item">
+                <a href="{{ route('assignedIssues') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Assigned Issues</p>
+                </a>
+              </li>
+  @endif
+               </ul>
+          </li>
+  <!-- Teams -->
+  @if(Auth::user()->role === "admin")
+  <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Teams
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('allTeams')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Teams</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('createTeam' )}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New Team</p>
+                </a>
+              </li>
+ 
             </ul>
           </li>
+  @endif 
+  @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
+  <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Users
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+    @if(Auth::user()->role === "admin")
+              <li class="nav-item">
+                <a href="{{ route('allUsers')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>All Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('createUser' )}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>New User</p>
+                </a>
+              </li>
+    @elseif(Auth::user()->role === "team-admin")
+    <li class="nav-item">
+                <a href="{{ route('allUsers')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Team Members</p>
+                </a>
+              </li>
+    @endif
+            </ul>
+          </li>
+  @endif
+  @endauth
          
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">
