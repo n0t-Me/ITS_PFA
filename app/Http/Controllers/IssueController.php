@@ -124,7 +124,7 @@ class IssueController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(int $id, Request $request)
     {
       $user = $request->user();
       $issue = Issue::with(['owner', 'attachements', 'comments', 'team','assignee','comments.owner', 'comments.attachements'])->find($id);

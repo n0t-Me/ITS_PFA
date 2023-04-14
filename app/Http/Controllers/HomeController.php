@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('dashboard.home',[
-            'issues' => Issue::with('getOwner')
+            'issues' => Issue::with('owner')
               ->orderBy('issues.status')
               ->orderBy('issues.severity', 'desc')
               ->orderBy('issues.opened_at', 'desc')
