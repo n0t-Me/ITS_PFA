@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class IssueController extends Controller
 {
@@ -209,5 +210,35 @@ class IssueController extends Controller
     public function destroy(Issue $issue)
     {
         //
+    }
+    public function pdf()
+    {
+      $role = Auth::user()->role;
+      if ($role === "admin") {
+        $pdf=PDF::loadView('pdf',[
+          'issues' => Issue::with('owner')
+            ->withCount('comments')
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'All Reported Issues'
+        ]);
+      return $pdf ->download(Auth::user()->id.'_issue.pdf');
+      }
+      if ($role === "team-admin" || $role === "member") {
+        $pdf=PDF::loadView('pdf',[
+          'issues' => Issue::with('owner')
+            ->withCount('comments')
+            ->where('team_id','=',Auth::user()->team_id)
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'Reported Issues'
+        ]);
+      return $pdf ->download(Auth::user()->id.'_all_issues.pdf');
+        
+      }
     }
 }

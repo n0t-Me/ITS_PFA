@@ -79,4 +79,7 @@ Route::get('/users/{id}/delete', [UserController::class, 'delete'])->middleware(
 
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
+Route::get('/pdf', [IssueController::class, 'pdf'])->name('PDF');
+
+
 ?>

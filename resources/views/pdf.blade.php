@@ -1,21 +1,12 @@
-@extends('layouts.app')
-
-@php
-  $status = [
-    "10" => "bg-danger",
-    "9" => "bg-danger",
-    "8" => "bg-warning",
-    "7" => "bg-warning",
-    "6" => "bg-warning",
-    "5" => "bg-success",
-    "4" => "bg-success",
-    "3" => "bg-info",
-    "2" => "bg-info",
-    "1" => "bg-info",
-  ];
-@endphp
-
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
 <div class="container">
   <div class="row justify-content-center">
     <p class="fs-4">{{$title}}</p>
@@ -39,13 +30,6 @@
       <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues</h2>
     @endforelse
   </div>
-  <div>
-  <a href="{{ route('PDF')}}" class="btn btn-primary">
-              <i class="nav-icon fas fa-file-pdf"></i>
-              <p>
-                Downoald <b>PDF</b>
-              </p>
-  </a>
 </div>
-</div>
-@endsection
+</body>
+</html>
