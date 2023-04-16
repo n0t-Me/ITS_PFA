@@ -37,9 +37,6 @@
     <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="{{route('home')}}" class="nav-link">Home</a>
-      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -89,11 +86,26 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
+      <!-- Authentication Links -->
+  @guest
+                            @if (Route::has('login'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                            @endif
+
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                          @else 
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block"> {{Auth::user()->name}}</a>
         </div>
       </div>
+      @endguest
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
@@ -140,28 +152,28 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('allIssues')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Reported issues</p>
-                </a>
-              </li>
-              <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{route('createIssue')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-plus-circle nav-icon"></i>
                   <p>New Issue</p>
                 </a>
               </li>
               <li class="nav-item">
+                <a href="{{route('allIssues')}}" class="nav-link">
+                  <i class="far fa-flag nav-icon"></i>
+                  <p>Reported issues</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('myissues') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-bookmark nav-icon"></i>
                   <p>My Issues</p>
                 </a>
               </li>
   @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
   <li class="nav-item">
                 <a href="{{ route('assignedIssues') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="far fa-clipboard nav-icon"></i>
                   <p>Assigned Issues</p>
                 </a>
               </li>
@@ -179,26 +191,25 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('allTeams')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Teams</p>
-                </a>
-              </li>
-              <li class="nav-item">
+            <li class="nav-item">
                 <a href="{{ route('createTeam' )}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-plus-circle nav-icon"></i>
                   <p>New Team</p>
                 </a>
               </li>
- 
+              <li class="nav-item">
+                <a href="{{ route('allTeams')}}" class="nav-link">
+                  <i class="far fa-address-book nav-icon"></i>
+                  <p>All Teams</p>
+                </a>
+              </li>
             </ul>
           </li>
   @endif 
   @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
   <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-table"></i>
+              <i class="nav-icon fas fa-user-edit"></i>
               <p>
                 Users
                 <i class="fas fa-angle-left right"></i>
@@ -207,21 +218,21 @@
             <ul class="nav nav-treeview">
     @if(Auth::user()->role === "admin")
               <li class="nav-item">
-                <a href="{{ route('allUsers')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>All Users</p>
+                <a href="{{ route('createUser' )}}" class="nav-link">
+                  <i class="fas fa-user-plus nav-icon"></i>
+                  <p>  New User</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('createUser' )}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>New User</p>
+                <a href="{{ route('allUsers')}}" class="nav-link">
+                  <i class="fas fa-users nav-icon"></i>
+                  <p>  All Users</p>
                 </a>
               </li>
     @elseif(Auth::user()->role === "team-admin")
     <li class="nav-item">
                 <a href="{{ route('allUsers')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fas fa-address-book nav-icon"></i>
                   <p>Team Members</p>
                 </a>
               </li>
@@ -231,19 +242,12 @@
   @endif
   @endauth
          
-          <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-cog"></i>
-              <p>
-                Settings
-              </p>
-            </a>
-          </li>
           <!-- Logout got it from navbar.blade.php -->
           <li class="nav-item">
                  <a class="nav-link" href="{{ route('logout') }}"
                      onclick="event.preventDefault();
                       document.getElementById('logout-form').submit();">
+                      <i class="fas fa-power-off nav-icon"></i>
                       {{ __('Logout') }}
                </a>
                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -263,6 +267,7 @@
    
 
 </div>
+<div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-inline-block">
@@ -324,11 +329,36 @@
      */
 
     //-------------
-    //- DONUT CHART -
-    //-------------
-    // Get context with jQuery - using jQuery's .get() method.
-    var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-    var donutData        = {
+    //- LINE CHART -
+    //--------------
+    var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+    var lineChartOptions =  {
+      maintainAspectRatio : false,
+      responsive : true,
+      legend: {
+        display: false
+      },
+      scales: {
+        xAxes: [{
+          gridLines : {
+            display : false,
+          }
+        }],
+        yAxes: [{
+          gridLines : {
+            display : true,
+          },
+          ticks: {
+          beginAtZero: true // option pour que l'axe y commence à 0
+            }
+        }]
+      },
+      tooltips: { // option pour l'affichage des données en pop-up lors du survol de la souris
+    mode: 'index',
+    intersect: false,
+      },
+    }
+    var lineChartData = {
       labels: [
           'severity_1',
           'severity_2',
@@ -343,21 +373,24 @@
       ],
       datasets: [
         {
+          label               : 'Issues',
+          backgroundColor     : 'rgba(60,141,188,0.9)',
+          borderColor         : 'rgba(60,141,188,0.8)',
+          pointRadius          : 5,
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(60,141,188,1)',
           data: [{{$sev_don_1}},{{$sev_don_2}},{{$sev_don_3}},{{$sev_don_4}},{{$sev_don_5}},{{$sev_don_6}},{{$sev_don_7}},{{$sev_don_8}},{{$sev_don_9}},{{$sev_don_10}}],
-          backgroundColor : ['#0dcaf0','#0dcaf0','#0dcaf0', '#198754','#198754', '#ffc107','#ffc107','#ffc107', '#dc3545', '#dc3545'],
-        }
-      ]
-    }
-    var donutOptions     = {
-      maintainAspectRatio : false,
-      responsive : true,
-    }
-    //Create pie or douhnut chart
-    // You can switch between pie and douhnut using the method below.
-    new Chart(donutChartCanvas, {
-      type: 'doughnut',
-      data: donutData,
-      options: donutOptions
+        },
+      ]}
+    lineChartData.datasets[0].fill = false;
+    lineChartOptions.datasetFill = false;
+
+    var lineChart = new Chart(lineChartCanvas, {
+      type: 'line',
+      data: lineChartData,
+      options: lineChartOptions
     })
     //---------------------
     //- STACKED BAR CHART -
@@ -385,9 +418,15 @@
       scales: {
         xAxes: [{
           stacked: true,
+          ticks: {
+           beginAtZero: true // option pour que l'axe x commence à 0
+           }
         }],
         yAxes: [{
-          stacked: true
+          stacked: true,
+          ticks: {
+          beginAtZero: true // option pour que l'axe y commence à 0
+            }
         }]
       }
     }
