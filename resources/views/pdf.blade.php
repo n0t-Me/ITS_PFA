@@ -1,3 +1,17 @@
+@php
+  $status = [
+    "10" => "bg-danger",
+    "9" => "bg-danger",
+    "8" => "bg-warning",
+    "7" => "bg-warning",
+    "6" => "bg-warning",
+    "5" => "bg-success",
+    "4" => "bg-success",
+    "3" => "bg-info",
+    "2" => "bg-info",
+    "1" => "bg-info",
+  ];
+@endphp
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +31,7 @@
           <div>
             @if ($issue->status==="Open")
               <span class="badge bg-primary">Open</span>
-            @else 
+            @else
               <span class="badge bg-secondary">Closed</span>
               @endif
 

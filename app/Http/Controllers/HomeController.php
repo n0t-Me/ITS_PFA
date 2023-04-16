@@ -26,10 +26,7 @@ class HomeController extends Controller
     {
         return view('dashboard.home',[
             'issues' => Issue::with('owner')
-<<<<<<< HEAD
-=======
               ->withCount('comments')
->>>>>>> be2ce891e7f2adb689ca73a459e633e25b812aa2
               ->orderBy('issues.status')
               ->orderBy('issues.severity', 'desc')
               ->orderBy('issues.opened_at', 'desc')

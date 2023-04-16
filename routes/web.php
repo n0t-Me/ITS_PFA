@@ -16,7 +16,7 @@ use App\Http\Controllers\CommentController;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/ 
+*/
 
 Route::redirect('/', '/login');
 
@@ -63,7 +63,7 @@ Route::get('/teams/{id}/delete', [TeamController::class, 'delete'])->middleware(
 
 Route::post('/teams/{id}/edit', [TeamController::class, 'edit'])->middleware('admin');
 
-Route::get('/users', [UserController::class, 'all'])->name('allUsers')->middleware('admin');
+Route::get('/users', [UserController::class, 'all'])->name('allUsers');
 
 Route::get('/users/create', [UserController::class, 'create'])->name('createUser')->middleware('admin');
 

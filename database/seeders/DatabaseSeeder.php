@@ -23,5 +23,19 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make('admin'),
              'team_id' => 2
         ]);
+        \App\Models\User::factory()->create([
+             'name' => 'developers manager',
+             'email' => 'dev@its.local',
+             'role' => 'team-admin',
+             'password' => Hash::make('dev'),
+             'team_id' => 3
+        ]);
+        \App\Models\User::factory()->create([
+             'name' => 'developer',
+             'email' => 'member@its.local',
+             'role' => 'member',
+             'password' => Hash::make('admin'),
+             'team_id' => 3
+        ]);
     }
 }

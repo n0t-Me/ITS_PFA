@@ -26,7 +26,7 @@
           <div>
             @if ($issue->status==="Open")
               <span class="badge bg-primary">Open</span>
-            @else 
+            @else
               <span class="badge bg-secondary">Closed</span>
               @endif
 
@@ -35,17 +35,16 @@
         </div>
         <div class="d-flex justify-content-between"><div class="fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->owner->name}}</div><div class="fs-8 fw-lighter fst-italic text-secondary">Comments count:{{$issue->comments_count}}</div></div>
       </div>
+    <div>
+      <a href="{{ route('PDF')}}" class="btn btn-primary">
+        <i class="nav-icon fas fa-file-pdf"></i>
+        <p>Download <b>PDF</b></p>
+    </a>
+    </div>
+
     @empty
       <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues</h2>
-    @endforelse
-  </div>
-  <div>
-  <a href="{{ route('PDF')}}" class="btn btn-primary">
-              <i class="nav-icon fas fa-file-pdf"></i>
-              <p>
-                Downoald <b>PDF</b>
-              </p>
-  </a>
-</div>
+    </div>
+   @endforelse
 </div>
 @endsection
