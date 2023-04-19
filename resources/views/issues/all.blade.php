@@ -1,5 +1,6 @@
-@extends('layouts.app')
-
+@extends('layouts.app2')
+<!-- Scripts -->
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 @php
   $status = [
     "10" => "bg-danger",
@@ -13,6 +14,7 @@
     "2" => "bg-info",
     "1" => "bg-info",
   ];
+  $empty_pdf=0;
 @endphp
 
 @section('content')
@@ -35,16 +37,21 @@
         </div>
         <div class="d-flex justify-content-between"><div class="fs-8 fw-lighter fst-italic text-secondary">Opened on {{date_format(date_create($issue->opened_at), "d-m-Y")}} by {{ $issue->owner->name}}</div><div class="fs-8 fw-lighter fst-italic text-secondary">Comments count:{{$issue->comments_count}}</div></div>
       </div>
-    <div>
-      <a href="{{ route('PDF')}}" class="btn btn-primary">
+
+    @empty
+    @php
+    $empty_pdf=1;
+    @endphp
+      <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues</h2>
+    </div>
+   @endforelse
+  @if ( $empty_pdf==0)
+   <div class="text-center">
+      <a href="{{ route('PDF')}}" class="btn btn-primary ">
         <i class="nav-icon fas fa-file-pdf"></i>
         <p>Download <b>PDF</b></p>
     </a>
     </div>
-
-    @empty
-      <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues</h2>
-    </div>
-   @endforelse
+  @endif
 </div>
 @endsection

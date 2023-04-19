@@ -1,5 +1,6 @@
-@extends('layouts.app')
-
+@extends('layouts.app2')
+<!-- Scripts -->
+@vite(['resources/sass/app.scss', 'resources/js/app.js'])
 @php
   $status = [
     "admin" => "bg-danger",
