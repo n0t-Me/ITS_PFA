@@ -37,7 +37,7 @@ Route::get('/issues/my', [IssueController::class, 'myissues'])->name('myissues')
 
 Route::get('/issues/assigned', [IssueController::class, 'assignedissues'])->name('assignedIssues');
 
-Route::get('/issues/{id}', [IssueController::class, 'show']);
+Route::get('/issues/{id}', [IssueController::class, 'show'])->where('id', '[0-9]+');
 
 Route::post('/issues/{id}/edit', [IssueController::class, 'edit']);
 
@@ -80,6 +80,8 @@ Route::get('/users/{id}/delete', [UserController::class, 'delete'])->middleware(
 Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
 Route::get('/pdf', [IssueController::class, 'pdf'])->name('PDF');
+
+Route::get('/issues/search', [IssueController::class, 'search'])->name('search_issues');
 
 
 ?>

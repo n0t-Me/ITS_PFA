@@ -48,6 +48,11 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <!-- Navbar Search -->
+      <li class="nav-item">
+       @yield('search')
+      </li>
+       <!-- Full-screen -->
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
@@ -243,9 +248,8 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
-<!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <!-- /.content-header -->
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
 <div class="content-header">
       <div class="container-fluid">
@@ -258,26 +262,11 @@
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content-header -->
+    
    @yield('content')
    
 
 </div>
-<div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1 A/Z
-    </div>
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="../plugins/jquery/jquery.min.js"></script>
