@@ -114,4 +114,27 @@ class UserController extends Controller
       Mail::to($email)->send(new UserDeleted());
       return back();
     }
+    /**
+     * search.
+     */
+    public function search ()
+    {
+      $search_text=$_GET['U_search'];
+      $role = Auth::user()->role;
+      if ($role === "admin") {
+        $users = User::with('team')->where('users.name','LIKE','%'.$search_text.'%')
+                      ->orderBy('users.role')->get();
+        $title = "Searched Users";
+      } else if ($role === "team-admin") {
+        $users = User::with('team')
+                      ->where('team_id','=',Auth::user()->team_id)
+                      ->where('users.name','LIKE','%'.$search_text.'%')
+                      ->orderBy('users.role')->get();
+        $title = "Searched Team Members";
+      }
+      return view('users.search',[
+        'users' => $users,
+        'title' => $title,
+      ]);
+      }
 }

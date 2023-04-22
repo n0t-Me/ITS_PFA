@@ -85,5 +85,5 @@ Route::get('/issues/search', [IssueController::class, 'search'])->name('search_i
 
 Route::get('/teams/search', [TeamController::class, 'search'])->name('search_teams');
 
-
+Route::get('/users/search', [UserController::class, 'search'])->name('search_users');
 ?>
