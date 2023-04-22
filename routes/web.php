@@ -57,7 +57,7 @@ Route::get('/teams/create', [TeamController::class, 'create'])->name('createTeam
 
 Route::post('/teams/create', [TeamController::class, 'store'])->name('storeTeam')->middleware('admin');
 
-Route::get('/teams/{id}', [TeamController::class, 'show'])->middleware('admin');
+Route::get('/teams/{id}', [TeamController::class, 'show'])->middleware('admin')->where('id', '[0-9]+');
 
 Route::get('/teams/{id}/delete', [TeamController::class, 'delete'])->middleware('admin');
 
@@ -82,6 +82,8 @@ Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 Route::get('/pdf', [IssueController::class, 'pdf'])->name('PDF');
 
 Route::get('/issues/search', [IssueController::class, 'search'])->name('search_issues');
+
+Route::get('/teams/search', [TeamController::class, 'search'])->name('search_teams');
 
 
 ?>

@@ -26,7 +26,7 @@
 @section('content')
 <div class="container">
   <div class="row justify-content-center">
-    <p class="fs-4">All Teams</p>
+    <p class="fs-4">{{$title}}</p>
     @foreach ($teams as $team)
       <div class="card card-body mb-4">
         <div class="d-flex justify-content-between">
@@ -47,10 +47,11 @@
           </div>
         </div>
         <div class="d-flex justify-content-between"><div id="team{{$team->id}}-desc"class="fs-8 fw-lighter fst-italic text-secondary">{{$team->description}}</div><div class="fs-8 fw-lighter fst-italic text-secondary"></div></div>
-      </div>
+		</div>
     @endforeach
   </div>
-</div>
+  </div>
+
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true" aria-labelledby="deleteModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -98,6 +99,9 @@
    </div>
   </div>
 </div>
+@if ($teams->isEmpty())
+      <h2 class="mt-4 fw-bolder text-secondary text-center">No Teams Found</h2>
+  @endif
 
 <script type="text/javascript">
 var deleteModal = document.getElementById('deleteModal')

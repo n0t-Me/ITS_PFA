@@ -59,7 +59,7 @@
       </div>
 
     @empty
-      <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues</h2>
+      <h2 class="mt-4 fw-bolder text-secondary text-center">No Issues Found</h2>
     </div>
    @endforelse
 </div>

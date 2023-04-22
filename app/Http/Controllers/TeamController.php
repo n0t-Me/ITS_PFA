@@ -102,4 +102,15 @@ class TeamController extends Controller
       }
       return back();
     }
+    /**
+     * search.
+     */
+    public function search ()
+    {
+      $search_text=$_GET['T_search'];
+        return view('teams.search',[
+            'teams' => Team::where('description','LIKE','%'.$search_text.'%')->get(),
+          'title' => 'Searched Teams'
+        ]);
+      }
 }
