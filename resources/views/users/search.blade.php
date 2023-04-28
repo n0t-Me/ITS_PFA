@@ -90,6 +90,9 @@
    </div>
   </div>
 </div>
+@if ($users->isEmpty())
+      <h2 class="mt-4 fw-bolder text-secondary text-center">No Users Found</h2>
+  @endif
 
 <script type="text/javascript">
 var resetModal = document.getElementById('resetModal')

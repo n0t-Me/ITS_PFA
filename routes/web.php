@@ -37,7 +37,7 @@ Route::get('/issues/my', [IssueController::class, 'myissues'])->name('myissues')
 
 Route::get('/issues/assigned', [IssueController::class, 'assignedissues'])->name('assignedIssues');
 
-Route::get('/issues/{id}', [IssueController::class, 'show']);
+Route::get('/issues/{id}', [IssueController::class, 'show'])->where('id', '[0-9]+');
 
 Route::post('/issues/{id}/edit', [IssueController::class, 'edit']);
 
@@ -57,7 +57,7 @@ Route::get('/teams/create', [TeamController::class, 'create'])->name('createTeam
 
 Route::post('/teams/create', [TeamController::class, 'store'])->name('storeTeam')->middleware('admin');
 
-Route::get('/teams/{id}', [TeamController::class, 'show'])->middleware('admin');
+Route::get('/teams/{id}', [TeamController::class, 'show'])->middleware('admin')->where('id', '[0-9]+');
 
 Route::get('/teams/{id}/delete', [TeamController::class, 'delete'])->middleware('admin');
 
@@ -81,5 +81,9 @@ Route::get('/profile', [UserController::class, 'profile'])->name('profile');
 
 Route::get('/pdf', [IssueController::class, 'pdf'])->name('PDF');
 
+Route::get('/issues/search', [IssueController::class, 'search'])->name('search_issues');
 
+Route::get('/teams/search', [TeamController::class, 'search'])->name('search_teams');
+
+Route::get('/users/search', [UserController::class, 'search'])->name('search_users');
 ?>

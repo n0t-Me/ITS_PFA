@@ -37,5 +37,12 @@ class DatabaseSeeder extends Seeder
              'password' => Hash::make('admin'),
              'team_id' => 3
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Zin',
+            'email' => 'zinebsebti@gmail.com',
+            'role' => 'team-admin',
+            'password' => Hash::make('zineb'),
+            'team_id' => 3
+       ]);
     }
 }

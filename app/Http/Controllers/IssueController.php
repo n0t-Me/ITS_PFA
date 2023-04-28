@@ -241,4 +241,37 @@ class IssueController extends Controller
         
       }
     }
+   /**
+     * search.
+     */
+    public function search ()
+    {
+      $search_text=$_GET['I_search'];
+        $role = Auth::user()->role;
+      if ($role === "admin") {
+        return view('issues.search',[
+          'issues' => Issue::with('owner')
+            ->where('issues.title','LIKE','%'.$search_text.'%')
+            ->withCount('comments')
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'Searched Issues'
+        ]);
+      }
+      if ($role === "team-admin" || $role === "member") {
+        return view('issues.search',[
+          'issues' => Issue::with('owner')
+            ->where('issues.title','LIKE','%'.$search_text.'%')
+            ->withCount('comments')
+            ->orderBy('issues.status')
+            ->orderBy('issues.severity', 'desc')
+            ->orderBy('issues.opened_at', 'desc')
+            ->get(),
+          'title' => 'Searched Issues'
+        ]);
+      }
+
+    } 
 }

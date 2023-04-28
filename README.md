@@ -3,9 +3,9 @@ End of Year Project (Issue Tracking System)
 
 ## TODO
 
-- [ ] Dashboard 
-- [ ] Issue to PDF
-- [ ] Issue, Users, Teams Search 
+- [x] Dashboard 
+- [x] Issue to PDF
+- [x] Issue, Users, Teams Search 
 
 ## Running
 ```sh
@@ -66,11 +66,11 @@ php artisan ui bootstrap --auth
 ## Routes:
 
 - [x] /login
-- [ ] /dashboard 
+- [x] /dashboard 
 - [x] /profile
 
 - [x] /issues
-- [ ] /issues/search
+- [x] /issues/search
 - [x] /issues/create
 - [x] /issues/my
 - [x] /issues/assigned 
@@ -83,7 +83,7 @@ php artisan ui bootstrap --auth
 - [x] /comments/{id}/delete 
 
 - [x] /teams 
-- [ ] /teams/search
+- [x] /teams/search
 - [x] /teams/create
 - [x] /teams/{id}
 - [x] /teams/{id}/delete
@@ -91,6 +91,7 @@ php artisan ui bootstrap --auth
 - [x] /teams/changeTeam
 
 - [x] /users
+- [x] /users/search
 - [x] /users/create 
 - [x] /users/{id}/resetPassword
 - [x] /users/{id}/updateInfo
