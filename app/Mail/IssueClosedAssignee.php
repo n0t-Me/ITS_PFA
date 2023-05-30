@@ -39,7 +39,7 @@ class IssueClosedAssignee extends Mailable
         return new Content(
           markdown: 'issues.closed_to_assignee',
           with: [
-            'title' => $title
+            'title' => $this->title
           ]
         );
     }

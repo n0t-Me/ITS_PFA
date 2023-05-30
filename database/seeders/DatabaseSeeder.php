@@ -43,6 +43,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'team-admin',
             'password' => Hash::make('zineb'),
             'team_id' => 3
-       ]);
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'test guest',
+            'email' => 'guest@its.local',
+            'role' => 'guest',
+            'password' => Hash::make('guest'),
+            'team_id' => 1
+        ]);
     }
 }

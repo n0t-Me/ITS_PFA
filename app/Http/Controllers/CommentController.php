@@ -27,7 +27,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -90,7 +90,7 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function delete(int $id)
+    public function delete(Request $request, int $id)
     {
       $owner_id = Comment::find($id)->owner_id;
       if ($request->user()->id === $owner_id) {

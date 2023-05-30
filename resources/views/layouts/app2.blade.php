@@ -58,7 +58,7 @@
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      
+
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -87,7 +87,7 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                          @else 
+                          @else
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block"> {{Auth::user()->name}}</a>
@@ -119,7 +119,7 @@
                 Dashboard
               </p>
             </a>
-          </li>     
+          </li>
           <li class="nav-item">
             <a href="{{route('profile')}}" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
@@ -128,7 +128,7 @@
               </p>
             </a>
           </li>
-          
+
   @auth
        <!-- issues -->
           <li class="nav-item">
@@ -146,19 +146,21 @@
                   <p>New Issue</p>
                 </a>
               </li>
+@if(Auth::user()->role !== "guest")
               <li class="nav-item">
                 <a href="{{route('allIssues')}}" class="nav-link">
                   <i class="far fa-flag nav-icon"></i>
                   <p>Reported issues</p>
                 </a>
               </li>
+@endif
               <li class="nav-item">
                 <a href="{{ route('myissues') }}" class="nav-link">
                   <i class="far fa-bookmark nav-icon"></i>
                   <p>My Issues</p>
                 </a>
               </li>
-  @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
+  @if(Auth::user()->role === "member")
   <li class="nav-item">
                 <a href="{{ route('assignedIssues') }}" class="nav-link">
                   <i class="far fa-clipboard nav-icon"></i>
@@ -193,7 +195,7 @@
               </li>
             </ul>
           </li>
-  @endif 
+  @endif
   @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
   <li class="nav-item">
             <a href="#" class="nav-link">
@@ -229,7 +231,7 @@
           </li>
   @endif
   @endauth
-         
+
           <!-- Logout got it from navbar.blade.php -->
           <li class="nav-item">
                  <a class="nav-link" href="{{ route('logout') }}"
@@ -257,14 +259,14 @@
           <div class="col-md-8">
           </div><!-- /.col -->
           <div class="col-md-8">
-        
+
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    
+
    @yield('content')
-   
+
 
 </div>
 

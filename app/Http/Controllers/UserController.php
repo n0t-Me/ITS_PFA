@@ -71,7 +71,7 @@ class UserController extends Controller
     {
       $validated = $request->validate([
         'name' => 'required|unique:users',
-        'email' => 'required|unique:users'
+        'email' => 'required|unique:users,email,'.Auth::user()->id
       ]);
       $user = User::find(Auth::user()->id);
       $user->name = $request->name;

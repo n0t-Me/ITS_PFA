@@ -9,6 +9,7 @@ use App\Models\Attachement;
 use App\Models\Issue;
 use App\Models\Team;
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -129,9 +130,10 @@ class IssueController extends Controller
     {
       $user = $request->user();
       $issue = Issue::with(['owner', 'attachements', 'comments', 'team','assignee','comments.owner', 'comments.attachements'])->find($id);
-      if (($user->role === "guest" && $user->id !== $issue->owner_id)
-        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
-      ) {
+      if (!(($user->id === $issue->owner_id)
+          || ($user->role === "admin")
+          || ($user->team_id === $issue->team_id)
+      )) {
         return abort(401);
       }
       return view('issues.show',[
@@ -149,10 +151,11 @@ class IssueController extends Controller
     {
       $user = $request->user();
       $issue = Issue::find($id);
-      if (($user->role === "guest" && $user->id !== $issue->owner_id)
-        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
-        || ($user->role === "member" && $user->id !== $issue->assignee_id)
-      ) {
+      if (!(($user->id === $issue->owner_id)
+          || ($user->id === $issue->assignee_id)
+          || ($user->role === "admin")
+          || ($user->role === "team-admin" && $user->team_id === $issue->team_id)
+      )) {
         return abort(401);
       }
       $issue->title = $request->title;
@@ -169,10 +172,11 @@ class IssueController extends Controller
     public function close(int $id)
     {
       $issue = Issue::with(['owner', 'assignee'])->find($id);
-      if (($user->role === "guest" && $user->id !== $issue->owner_id)
-        || ($user->role !== "admin" && $user->team_id !== $issue->team_id)
-        || ($user->role === "member" && $user->id !== $issue->assignee_id)
-      ) {
+      $user = Auth::user();
+      if (!(($user->id === $issue->owner_id)
+        || ($user->role === "team-admin" && $user->team_id === $issue->team_id)
+        || ($user->id === $issue->assignee_id)
+      )) {
         return abort(401);
       }
       if ($issue->status === "Open") {
@@ -190,16 +194,17 @@ class IssueController extends Controller
     public function assign(Request $request, int $id)
     {
       $issue = Issue::find($id);
-      if (($user->role !== "admin")
-        || ($user->role === "team-admin" && $user->team_id !== $issue->team_id)
-      ) {
+      $user = User::find($request->assignee_id);
+
+      if (!(($user->role === "admin")
+        || (Auth::user()->role === "team-admin" && Auth::user()->team_id === $issue->team_id)
+      )) {
         return abort(401);
       }
 
       $issue->assignee_id = $request->assignee_id;
       $issue->save();
 
-      $user = User::find($request->assignee_id);
       Mail::to($user->email)->send(new AssignedToIssue($issue->title));
       return back();
     }
@@ -238,7 +243,7 @@ class IssueController extends Controller
           'title' => 'Reported Issues'
         ]);
       return $pdf ->download(Auth::user()->id.'_all_issues.pdf');
-        
+
       }
     }
    /**
@@ -273,5 +278,5 @@ class IssueController extends Controller
         ]);
       }
 
-    } 
+    }
 }

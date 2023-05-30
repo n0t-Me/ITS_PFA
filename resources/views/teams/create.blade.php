@@ -19,7 +19,7 @@
                 <textarea id="description" name="description" class="form-control" placeholder="" style="height: 200px" required></textarea>
                 <label for="description">Description</label>
               </div>
-              <div class="mb-3 form-check form-switch">
+              <div class="mb-3 form-switch">
                 <input class="form-check-input" name="hidden" id="hidden" type="checkbox">
                 <label class="form-check-label" for="hidden">Hidden Team</label>
               </div>

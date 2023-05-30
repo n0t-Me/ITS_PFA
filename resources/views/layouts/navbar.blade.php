@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-    
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
@@ -37,8 +37,10 @@
                           <a class="nav-link dropdown-toggle" href='#' role="button" data-bs-toggle="dropdown" aria-expanded="false">Issues</a>
                           <div class="dropdown-menu" aria-labelledby="dropdownIssues">
                             <a class="dropdown-item" href="{{ route('createIssue' )}}"><i class="bi bi-plus-circle text-info"></i> New Issue</a>
-                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-flag text-info"></i> Reported Issues</a>
                             <a class="dropdown-item" href="{{ route('myissues') }}"><i class="bi bi-tag text-info"></i> My Issues</a>
+                            @if(Auth::user()->role !== "guest")
+                            <a class="dropdown-item" href="{{ route('allIssues')}}"><i class="bi bi-flag text-info"></i> Reported Issues</a>
+                            @endif
                             @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
                             <a class="dropdown-item" href="{{ route('assignedIssues') }}"><i class="bi bi-person-workspace text-info"></i> Assigned Issues</a>
                             @endif
@@ -55,7 +57,7 @@
                           </div>
                         </ul>
                       </li>
-                      @endif 
+                      @endif
                       @if(Auth::user()->role === "admin" || Auth::user()->role === "team-admin")
                       <li>
                         <ul class="nav-item dropdown" id="dropdownUsers">
@@ -100,7 +102,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        <i class="bi bi-power text-danger"></i> 
+                                        <i class="bi bi-power text-danger"></i>
                                         {{ __('Logout') }}
                                     </a>
 
@@ -118,5 +120,5 @@
 </div>
 </body>
 </html>
- 
+
 
