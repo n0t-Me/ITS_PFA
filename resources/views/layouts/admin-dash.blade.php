@@ -1,4 +1,4 @@
-<!DOsTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -146,7 +146,7 @@
                   <p>My Issues</p>
                 </a>
               </li>
-  @if(Auth::user()->role === "member" ||  Auth::user()->role === "team-admin")
+  @if(Auth::user()->role === "member" )
   <li class="nav-item">
                 <a href="{{ route('assignedIssues') }}" class="nav-link">
                   <i class="far fa-clipboard nav-icon"></i>
