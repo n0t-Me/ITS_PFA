@@ -1,0 +1,26 @@
+version: '2'
+
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.6
+    environment:
+     - MARIADB_ROOT_PASSWORD=password
+     - MARIADB_USER=xkr
+     - MARIADB_PASSWORD=password
+     - MARIADB_DATABASE=HelpDesk
+     - MARIADB_ROOT_HOST='%'
+
+  myapp:
+    image: n0ucan1/pfa:latest
+    ports:
+      - '8000:8000'
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USERNAME=xkr
+      - DB_DATABASE=HelpDesk
+      - DB_PASSWORD=password
+      - MAIL_USERNAME='ahmed.amine.belaroussia@gmail.com'
+      - MAIL_PASSWORD='tkasnvddygtplowy'
+    depends_on:
+      - mariadb
